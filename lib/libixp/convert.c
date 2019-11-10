@@ -29,25 +29,37 @@ ixp_puint(IxpMsg *msg, uint size, uint32_t *val) {
 			case SDWord:
 				pos[3] = v>>24;
 				pos[2] = v>>16;
+				pos[1] = v>>8;
+				pos[0] = v;
+                break;
 			case SWord:
 				pos[1] = v>>8;
+				pos[0] = v;
+                break;
 			case SByte:
 				pos[0] = v;
-				break;
+                break;
 			}
+			break;
 		case MsgUnpack:
 			v = 0;
 			switch(size) {
 			case SDWord:
 				v |= pos[3]<<24;
 				v |= pos[2]<<16;
+				v |= pos[1]<<8;
+				v |= pos[0];
+                break;
 			case SWord:
 				v |= pos[1]<<8;
+				v |= pos[0];
+                break;
 			case SByte:
 				v |= pos[0];
-				break;
+                break;
 			}
 			*val = v;
+			break;
 		}
 	}
 	msg->pos += size;
