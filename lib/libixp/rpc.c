@@ -197,6 +197,7 @@ enqueue(IxpClient *mux, IxpRpc *r)
 static void
 dequeue(IxpClient *mux, IxpRpc *r)
 {
+	(void) mux;
 	r->next->prev = r->prev;
 	r->prev->next = r->next;
 	r->prev = nil;
