@@ -1,5 +1,5 @@
 /* Copyright ©2006-2010 Kris Maglione <maglione.k at Gmail>
-/* Copyright ©2004-2006 Anselm R. Garbe <garbeam at gmail dot com>
+ * Copyright ©2004-2006 Anselm R. Garbe <garbeam at gmail dot com>
  * See LICENSE file for license details.
  */
 #include <assert.h>
