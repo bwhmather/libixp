@@ -14,13 +14,13 @@
 
 static int
 mread(int fd, IxpMsg *msg, uint count) {
-	int r, n;
+	uint r, n;
 
-	n = msg->end - msg->pos;
-	if(n <= 0) {
+	if (msg->end < msg->pos) {
 		werrstr("buffer full");
 		return -1;
 	}
+	n = msg->end - msg->pos;
 	if(n > count)
 		n = count;
 
@@ -30,7 +30,7 @@ mread(int fd, IxpMsg *msg, uint count) {
 	return r;
 }
 
-static int
+static uint
 readn(int fd, IxpMsg *msg, uint count) {
 	uint num;
 	int r;

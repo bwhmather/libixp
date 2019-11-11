@@ -507,7 +507,7 @@ ixp_fstat(IxpCFid *fid) {
 static long
 _pread(IxpCFid *f, char *buf, long count, int64_t offset) {
 	IxpFcall fcall;
-	int n, len;
+	uint n, len;
 
 	len = 0;
 	while(len < count) {
@@ -580,7 +580,7 @@ ixp_pread(IxpCFid *fid, void *buf, long count, int64_t offset) {
 static long
 _pwrite(IxpCFid *f, const void *buf, long count, int64_t offset) {
 	IxpFcall fcall;
-	int n, len;
+	uint n, len;
 
 	len = 0;
 	do {

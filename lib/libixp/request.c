@@ -341,7 +341,7 @@ handlereq(Ixp9Req *r) {
 			ixp_respond(r, "wstat of muid");
 			return;
 		}
-		if(~r->ifcall.twstat.stat.mode && ((r->ifcall.twstat.stat.mode&DMDIR)>>24) != r->fid->qid.type&QTDIR) {
+		if(~r->ifcall.twstat.stat.mode && ((r->ifcall.twstat.stat.mode&DMDIR)>>24) != (r->fid->qid.type&QTDIR)) {
 			ixp_respond(r, "wstat on DMDIR bit");
 			return;
 		}
@@ -371,7 +371,7 @@ handlereq(Ixp9Req *r) {
 void
 ixp_respond(Ixp9Req *req, const char *error) {
 	Ixp9Conn *p9conn;
-	int msize;
+	uint msize;
 
 	p9conn = req->conn;
 

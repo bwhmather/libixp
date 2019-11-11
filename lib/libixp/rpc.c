@@ -101,13 +101,17 @@ fail:
 static void
 dispatchandqlock(IxpClient *mux, IxpFcall *f)
 {
-	int tag;
+	uint tag;
 	IxpRpc *r2;
 
-	tag = f->hdr.tag - mux->mintag;
 	thread->lock(&mux->lk);
+	if (f->hdr.tag < mux->mintag) {
+		fprintf(stderr, "libixp: received unfeasible tag: %d (min: %d, max: %d)\n", f->hdr.tag, mux->mintag, mux->mintag+mux->mwait);
+		goto fail;
+	}
+	tag = f->hdr.tag - mux->mintag;
 	/* hand packet to correct sleeper */
-	if(tag < 0 || tag >= mux->mwait) {
+	if(tag >= mux->mwait) {
 		fprintf(stderr, "libixp: received unfeasible tag: %d (min: %d, max: %d)\n", f->hdr.tag, mux->mintag, mux->mintag+mux->mwait);
 		goto fail;
 	}
@@ -202,13 +206,13 @@ dequeue(IxpClient *mux, IxpRpc *r)
 static int 
 gettag(IxpClient *mux, IxpRpc *r)
 {
-	int i, mw;
+	uint i, mw;
 	IxpRpc **w;
 
 	for(;;){
 		/* wait for a free tag */
 		while(mux->nwait == mux->mwait){
-			if(mux->mwait < mux->maxtag-mux->mintag){
+			if(mux->mwait < (unsigned) mux->maxtag-mux->mintag){
 				mw = mux->mwait;
 				if(mw == 0)
 					mw = 1;
