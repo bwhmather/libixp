@@ -11,6 +11,8 @@
 #include <pwd.h>
 #include "ixp_local.h"
 
+char *argv0 = NULL;
+
 /**
  * Function: ixp_smprint
  *
