@@ -87,7 +87,7 @@ usage() {
 	fprintf(stderr,
 		   "usage: %1$s [-a <address>] {create | read | ls [-ld] | remove | write} <file>\n"
 		   "       %1$s [-a <address>] xwrite <file> <data>\n"
-		   "       %1$s -v\n", argv0);
+		   "       %1$s -v\n", ixp_argv0);
 	exit(1);
 }
 
@@ -480,7 +480,7 @@ main(int argc, char *argv[]) {
 
 	ARGBEGIN{
 	case 'v':
-		printf("%s-" VERSION ", ©2007 Ron Minnich\n", argv0);
+		printf("%s-" VERSION ", ©2007 Ron Minnich\n", ixp_argv0);
 		exit(0);
 	case 'a':
 		address = EARGF(usage());
